@@ -11,7 +11,6 @@ export default function Hero() {
 	const qrCodeURL = process.env.REACT_APP_GITHUB_PAGES_URL;
 
 	const imageClick = () => {			
-		console.log('canPlaySound', canPlaySound);
 		if (canPlaySound && audioRef.current.readyState === 4) {
 			if (!audioPlaying) {
 				audioRef.current.play();

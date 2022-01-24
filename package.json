@@ -1,6 +1,7 @@
 {
   "name": "themed-demo-app",
   "version": "0.1.0",
+  "homepage": "https://cleon.github.io/themed-demo-app/",
   "private": true,
   "dependencies": {
     "@chakra-ui/icons": "^1.1.1",

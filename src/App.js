@@ -2,47 +2,26 @@ import React, { useEffect, useState, createContext, useRef } from 'react';
 import { ChakraProvider, Flex, extendTheme } from '@chakra-ui/react';
 import { withLDConsumer, useFlags } from 'launchdarkly-react-client-sdk';
 import Navigation from './components/Navigation';
-import Hero from './components/Hero'
+import Hero from './components/Hero';
 import './App.css'
 
 export const DemoContext = createContext();
 
 function App({ ldClient }) {
-  const defaultContext = {
-    theme: "Default",
-    themeStyle: {
-      colors: {
-        brand: {
-          title: "#ebff38",
-          title_bg1: "#282828",
-          title_bg2: "#1E1E1E"
-        }
-      },
-      fonts: {}
-    },
-    heroImage: "themes/default/hero.webp",
-    navLinks: [],
-    itemType: "",
-    clickSound: "themes/default/sound.mp3",
-    defaultItemImage: "themes/default/default.png",
-    items: []
-  }
   const { demoTheme, demoSoundEnabled, demoQRCode, demoAdmin, demoBroken, demoServerBroken } = useFlags();
-  const [context, setContext] = useState(defaultContext);
+  const [context, setContext] = useState({});
   const [theme, setTheme] = useState();
   const themeCache = useRef([]);
 
   async function updateTheme(theme) {
-    let ctx = defaultContext;
+    let ctx;
     const cached = themeCache.current.find(t => (t.theme === theme));
 
     if (cached) {
       ctx = cached;
     } else {
-      if (theme != 'Default') { //maybe move this to the public folder later
-        const resp = await fetch(`themes/${demoTheme}/theme.json`);
-        ctx = await resp.json();
-      }
+      const resp = await fetch(`themes/${demoTheme}/theme.json`);
+      ctx = await resp.json();
       themeCache.current.push(ctx);
     }
 
@@ -56,7 +35,7 @@ function App({ ldClient }) {
       selectedItem: 'DEFAULT',
       NOP: 'DEFAULT'
     };
-    
+
     setTheme(extendTheme(ctx.themeStyle));
     setContext(previousContext => ({ ...previousContext, ...ctx }));
   }
@@ -90,14 +69,6 @@ function App({ ldClient }) {
     console.log('demoServerBroken flag changed', demoServerBroken);
     setContext(previousContext => ({ ...previousContext, demoServerBroken: demoServerBroken }));
   }, [demoServerBroken]);
-
-  useEffect(() => {
-    //console.log('context.theme changed', context.theme);
-  }, [context.theme]);
-
-  useEffect(() => {
-    //console.log('context.selecteditem changed', context.selectedItem);
-  }, [context.selectedItem]);
 
   return (
     <ChakraProvider theme={theme}>

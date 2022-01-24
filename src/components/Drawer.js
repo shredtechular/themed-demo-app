@@ -54,19 +54,19 @@ export default function SettingsDrawer() {
         setSelectedSuit(targetedSuit);
     }
 
-    function loadCards() {
-        if (cards.current.length > 0) return;
-        (async () => {
-            const deal = await fetch('https://deckofcardsapi.com/api/deck/new/draw/?count=52');
-            const deck = await deal.json();
-            deck.cards.sort((a, b) => {
-                if (a.value < b.value) { return -1; }
-                if (a.value > b.value) { return 1; }
-                return 0;
-            });
-            cards.current = deck.cards;
-        })();
-    }
+    // function loadCards() {
+    //     if (cards.current.length > 0) return;
+    //     (async () => {
+    //         const deal = await fetch('https://deckofcardsapi.com/api/deck/new/draw/?count=52');
+    //         const deck = await deal.json();
+    //         deck.cards.sort((a, b) => {
+    //             if (a.value < b.value) { return -1; }
+    //             if (a.value > b.value) { return 1; }
+    //             return 0;
+    //         });
+    //         cards.current = deck.cards;
+    //     })();
+    // }
 
     function loadSuits() {
         suits.current = ['DIAMONDS', 'CLUBS', 'SPADES', 'HEARTS'];
@@ -81,7 +81,8 @@ export default function SettingsDrawer() {
 
     function selectedThemeChanged(e) {
         const value = e.target.value;
-        FF.updateDemoThemeFallthrough(value);
+        FF.setSoundFlagSelectionTarget(context.NOP)
+            .then(FF.updateDemoThemeFallthrough(value));
         setContext(previousContext => ({ ...previousContext, theme: value }));
     }
 
@@ -91,15 +92,14 @@ export default function SettingsDrawer() {
         FF.setSoundFlagSelectionTarget(value);
     }
 
-    function selectedCardChanged(e) {
-        //TODO: implement
-        //const value = e.target.value;
-        //setSelectedCard(value);
-    }
+    // function selectedCardChanged(e) {
+    //     //TODO: implement
+    //     //const value = e.target.value;
+    //     //setSelectedCard(value);
+    // }
 
     function selectedSuitChanged(e) {
         const value = e.target.value;
-        console.log('suit selection changed', value);
         setSelectedSuit(value);
         FF.setSoundFlagSuitTarget(value);
     }
