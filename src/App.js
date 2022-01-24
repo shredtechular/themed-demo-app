@@ -27,7 +27,7 @@ function App({ ldClient }) {
     defaultItemImage: "themes/default/default.png",
     items: []
   }
-  const { demoTheme, demoSoundEnabled, demoQRCode, demoAdmin, demoBroken } = useFlags();
+  const { demoTheme, demoSoundEnabled, demoQRCode, demoAdmin, demoBroken, demoServerBroken } = useFlags();
   const [context, setContext] = useState(defaultContext);
   const [theme, setTheme] = useState();
   const themeCache = useRef([]);
@@ -85,6 +85,11 @@ function App({ ldClient }) {
     console.log('demoBroken flag changed', demoBroken);
     setContext(previousContext => ({ ...previousContext, demoBroken: demoBroken }));
   }, [demoBroken]);
+
+  useEffect(() => {
+    console.log('demoServerBroken flag changed', demoServerBroken);
+    setContext(previousContext => ({ ...previousContext, demoServerBroken: demoServerBroken }));
+  }, [demoServerBroken]);
 
   useEffect(() => {
     //console.log('context.theme changed', context.theme);

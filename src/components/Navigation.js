@@ -30,6 +30,7 @@ export default function Navigation() {
 
 	return (
 		<>
+			{context.demoServerBroken && <div><Broken server="true" /></div>}
 			{showBroken && <div onClick={brokenFeatureClicked}><Broken /></div>}
 			<chakra.header px={2} w="full" textAlign="center" justifyContent="center">
 				<Flex h={16} alignItems='center' justifyContent='space-between' textAlign="center">

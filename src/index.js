@@ -27,7 +27,8 @@ import App from "./App";
       'demoSoundEnabled': false,
       'demoQRCode': false,
       'demoAdmin': false,
-      'demoBroken': false
+      'demoBroken': false,
+      'demoServerBroken': false
     }
   });
 

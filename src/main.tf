@@ -136,6 +136,28 @@ resource "launchdarkly_feature_flag" "DemoBroken" {
   }
 }
 
+resource "launchdarkly_feature_flag" "DemoServerBroken" {
+  project_key = local.LD_project_key
+  key         = "demoServerBroken"
+  name        = "DemoServerBroken"
+
+  variation_type = "boolean"
+  variations {
+    value = "true"
+    name  = "True"
+  }
+
+  variations {
+    value = "false"
+    name  = "False"
+  }
+
+  defaults {
+    on_variation  = 0
+    off_variation = 1
+  }
+}
+
 resource "launchdarkly_feature_flag" "DemoQRCode" {
   project_key = local.LD_project_key
   key         = "demoQRCode"
