@@ -15,28 +15,27 @@ import {
     Box,
     FormLabel
 } from "@chakra-ui/react";
-
 import FF from './FF';
 
 export default function SettingsDrawer() {
     const { context, setContext } = useContext(DemoContext);
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [selectedTargetingItem, setSelectedTargetintItem] = useState(context.NOP);
-    //const [selectedCard, setSelectedCard] = useState(context.NOP);
     const [selectedSuit, setSelectedSuit] = useState(context.NOP);
     const buttonRef = useRef();
-    const cards = useRef([]);
     const suits = useRef([]);
     const themes = useRef([]);
+
+    //const [selectedCard, setSelectedCard] = useState(context.NOP);
+    //const cards = useRef([]);
 
     useEffect(() => {
         FF.getDemoThemeVariations()
             .then(result => themes.current = result);
         FF.getDemoSoundFlag()
             .then(result => setTargetingSelections(result));
-
-        //loadCards(); //use this if enabling specific card targeting (ex. '2S' for two of spades)
         loadSuits();
+        //loadCards(); //use this if enabling specific card targeting (ex. '2S' for two of spades)
     }, []);
 
     function setTargetingSelections(flag) {
@@ -46,12 +45,12 @@ export default function SettingsDrawer() {
 
         //lazy way would be to index clauses (clauses[x], etc.) but...
         const targetedSelection = selectionRule.clauses.find(c => c.attribute == 'selection')?.values[0];
-        //const targetedCard = cardRule.clauses.find(c => c.attribute == 'card')?.values[0];
         const targetedSuit = cardRule.clauses.find(c => c.attribute == 'suit')?.values[0];
+        //const targetedCard = cardRule.clauses.find(c => c.attribute == 'card')?.values[0];
 
         setSelectedTargetintItem(targetedSelection);
-        //setSelectedCard(targetedCard);
         setSelectedSuit(targetedSuit);
+        //setSelectedCard(targetedCard);
     }
 
     // function loadCards() {
@@ -93,17 +92,17 @@ export default function SettingsDrawer() {
         FF.setSoundFlagSelectionTarget(value);
     }
 
-    // function selectedCardChanged(e) {
-    //     //TODO: implement
-    //     //const value = e.target.value;
-    //     //setSelectedCard(value);
-    // }
-
     function selectedSuitChanged(e) {
         const value = e.target.value;
         setSelectedSuit(value);
         FF.setSoundFlagSuitTarget(value);
     }
+
+    // function selectedCardChanged(e) {
+    //     //TODO: implement
+    //     //const value = e.target.value;
+    //     //setSelectedCard(value);
+    // }
 
     return (
         <>

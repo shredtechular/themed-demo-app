@@ -14,12 +14,9 @@ function App({ ldClient }) {
   const themeCache = useRef([]);
 
   async function updateTheme(theme) {
-    let ctx;
-    const cached = themeCache.current.find(t => (t.theme === theme));
+    let ctx = themeCache.current.find(t => (t.theme === theme));
 
-    if (cached) {
-      ctx = cached;
-    } else {
+    if (!ctx) {
       const resp = await fetch(`themes/${demoTheme}/theme.json`);
       ctx = await resp.json();
       themeCache.current.push(ctx);
@@ -41,32 +38,26 @@ function App({ ldClient }) {
   }
 
   useEffect(() => {
-    console.log('demoTheme flag changed', demoTheme);
     updateTheme(demoTheme);
   }, [demoTheme]);
 
   useEffect(() => {
-    console.log('showQRCode flag changed', demoQRCode);
     setContext(previousContext => ({ ...previousContext, showQRCode: demoQRCode }));
   }, [demoQRCode]);
 
   useEffect(() => {
-    console.log('demoSoundEnabled flag changed', demoSoundEnabled);
     setContext(previousContext => ({ ...previousContext, soundEnabled: demoSoundEnabled }));
   }, [demoSoundEnabled]);
 
   useEffect(() => {
-    console.log('demoadmin flag changed', demoAdmin);
     setContext(previousContext => ({ ...previousContext, demoAdmin: demoAdmin }));
   }, [demoAdmin]);
 
   useEffect(() => {
-    console.log('demoBroken flag changed', demoBroken);
     setContext(previousContext => ({ ...previousContext, demoBroken: demoBroken }));
   }, [demoBroken]);
 
   useEffect(() => {
-    console.log('demoServerBroken flag changed', demoServerBroken);
     setContext(previousContext => ({ ...previousContext, demoServerBroken: demoServerBroken }));
   }, [demoServerBroken]);
 
