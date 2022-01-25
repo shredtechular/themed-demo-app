@@ -7,16 +7,16 @@ terraform {
   }
 }
 
-# Provide your LaunchDarkly 
+# Provide your own LaunchDarkly 
 # - API access token
 # - Project key
 # - Environment name, key, color
 locals {
   LD_access_token      = "api-87c1c819-b350-4968-8205-c858f0eaa39d"
   LD_project_key       = "leon-demo-project"
-  LD_environment_name  = "Production"
-  LD_environment_key   = "production"
-  LD_environment_color = "417505"
+  LD_environment_name  = "TFTest"
+  LD_environment_key   = "tftest"
+  LD_environment_color = "ff0000"
 }
 
 provider "launchdarkly" {
@@ -37,52 +37,52 @@ resource "launchdarkly_feature_flag" "DemoTheme" {
 
   variation_type = "string"
   variations {
-    value = "Default"
+    value = "default"
     name  = "Default"
   }
 
   variations {
-    value = "Football"
+    value = "football"
     name  = "Football"
   }
 
   variations {
-    value = "Baseball"
+    value = "baseball"
     name  = "Baseball"
   }
 
   variations {
-    value = "Soccer"
+    value = "soccer"
     name  = "Soccer"
   }
 
   variations {
-    value = "Basketball"
+    value = "basketball"
     name  = "Basketball"
   }
 
   variations {
-    value = "Food"
+    value = "food"
     name  = "Food"
   }
 
   variations {
-    value = "Software"
+    value = "software"
     name  = "Software"
   }
 
   variations {
-    value = "Movies"
+    value = "movies"
     name  = "Movies"
   }
 
   variations {
-    value = "Animals"
+    value = "animals"
     name  = "Animals"
   }
 
   variations {
-    value = "Music"
+    value = "music"
     name  = "Music"
   }
 
@@ -208,7 +208,7 @@ resource "launchdarkly_feature_flag_environment" "Environment_demoAdmin" {
   on            = false
   off_variation = 1
 
-  # Default to true for holder(s) of the Ace of Spade card (when targeting is on)
+  # Default to true for holder(s) of the Ace of Spade (Motorhead) card (when targeting is on)
   # (see the rules section of the 'demoSoundEnabled' flag for more info about the 'card' values)
   rules {
     clauses {
