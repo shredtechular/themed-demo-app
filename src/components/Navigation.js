@@ -21,7 +21,7 @@ export default function Navigation() {
 	const [showBroken, setShowBroken] = useState(false);
 
 	useEffect(() => {
-		if(!context.demoBroken && showBroken) {
+		if (!context.demoBroken && showBroken) {
 			setShowBroken(false);
 		}
 	}, [context.demoBroken]);

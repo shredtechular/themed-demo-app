@@ -100,7 +100,8 @@
 		},
 		{
 			"name": "Minnesota Vikings",
-			"image": "https://content.sportslogos.net/logos/7/172/full/2704_minnesota_vikings-primary-20131.png"
+			"image": "https://content.sportslogos.net/logos/7/172/full/2704_minnesota_vikings-primary-20131.png",
+			"sound": "themes/football/vikings.mp3"
 		},
 		{
 			"name": "New England Patriots",

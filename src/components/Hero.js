@@ -9,29 +9,34 @@ export default function Hero() {
 	const audioRef = useRef();
 	const qrCodeURL = process.env.REACT_APP_GITHUB_PAGES_URL;
 
-	let canPlaySound = (context.soundEnabled === true && context.clickSound.length > 0);
-
 	const imageClick = () => {
-		if (canPlaySound && audioRef.current.readyState === 4) {
-			if (!audioPlaying) {
-				audioRef.current.src = context.clickSound;
-				audioRef.current.play();
-				setAudioPlaying(true);
+		if (context.soundEnabled) {
+			const src = context.selectedItem.sound ? context.selectedItem.sound : context.clickSound;
+			if (src.length > 0 && audioRef.current.readyState === 4) {
+				if (!audioPlaying) {
+					audioRef.current.src = src;
+					audioRef.current.play();
+					setAudioPlaying(true);
+				}
 			}
 		}
 	}
 
 	useEffect(() => {
-		if (canPlaySound) {
+		if (context.soundEnabled && !audioRef.current) {
+			console.log('can play sound, initializing Audio', audioRef.current);
 			audioRef.current = new Audio();
+
+			//hack for iOS Safari sound woes...
 			audioRef.current.autoplay = true;
 			audioRef.current.src = "data:audio/mpeg;base64,SUQzBAAAAAABEVRYWFgAAAAtAAADY29tbWVudABCaWdTb3VuZEJhbmsuY29tIC8gTGFTb25vdGhlcXVlLm9yZwBURU5DAAAAHQAAA1N3aXRjaCBQbHVzIMKpIE5DSCBTb2Z0d2FyZQBUSVQyAAAABgAAAzIyMzUAVFNTRQAAAA8AAANMYXZmNTcuODMuMTAwAAAAAAAAAAAAAAD/80DEAAAAA0gAAAAATEFNRTMuMTAwVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQsRbAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQMSkAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV";
+
 			audioRef.current.addEventListener('ended', () => {
 				audioRef.current.currentTime = 0;
 				setAudioPlaying(false)
 			});
 		}
-	}, [context.soundEnabled, context.clickSound]);
+	}, [context.soundEnabled]);
 
 	return (
 		<Box textAlign="center">
@@ -75,7 +80,7 @@ export default function Hero() {
 				</Center>
 			}
 
-			{(canPlaySound) ?
+			{(context.soundEnabled) ?
 				<Box onClick={imageClick} cursor="pointer">
 					<Center>
 						<Image
@@ -85,11 +90,7 @@ export default function Hero() {
 							mb={0}
 							maxWidth={{ base: '40%', md: '60%' }}
 							cursor="pointer"
-							src={
-								context.selectedItem != context.NOP ?
-									context.items.find((item) => item.name === context.selectedItem).image
-									: context.defaultItemImage
-							} />
+							src={context.selectedItem != context.NOP ? context.selectedItem.image : context.defaultItemImage} />
 					</Center>
 					<Center>
 						<chakra.span cursor="pointer" lineHeight={1} fontSize={{ base: 20, md: 30 }}>Click Me!</chakra.span>
@@ -103,15 +104,10 @@ export default function Hero() {
 						p={0}
 						mb={0}
 						maxWidth={{ base: '40%', md: '60%' }}
-						src={
-							context.selectedItem != context.NOP ?
-								context.items.find((item) => item.name === context.selectedItem).image
-								: context.defaultItemImage
-						}
-					/>
+						src={context.selectedItem != context.NOP ? context.selectedItem.image : context.defaultItemImage} />
+
 				</Center>
 			}
-
 		</Box>
 	);
 }

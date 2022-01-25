@@ -76,7 +76,8 @@ export default function SettingsDrawer() {
         const value = e.target.value;
         const user = context.ldClient.getUser();
         context.ldClient.identify({ ...user, custom: { ...user.custom, selection: value } });
-        setContext(previousContext => ({ ...previousContext, selectedItem: value }));
+        const selectedContextItem = (value != context.NOP) ? context.items.find(item => item.name == value) : context.NOP;
+        setContext(previousContext => ({ ...previousContext, selectedItem: selectedContextItem }));
     }
 
     function selectedThemeChanged(e) {
@@ -120,7 +121,7 @@ export default function SettingsDrawer() {
                         {context.items?.length > 0 &&
                             <>
                                 <FormLabel fontWeight='bold'>Item Selection</FormLabel>
-                                <Select onChange={selectedItemChanged} value={context.selectedItem}>
+                                <Select onChange={selectedItemChanged} value={context.selectedItem.name}>
                                     <option value={context.NOP}>Select a {context.itemType}</option>
                                     {context.items.map(item =>
                                         <option key={item.name} value={item.name}>{item.name}</option>
