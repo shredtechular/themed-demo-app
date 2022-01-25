@@ -1,7 +1,7 @@
 import { ApiClient, FeatureFlagsApi } from 'launchdarkly-api';
 
 ApiClient.instance.authentications['ApiKey'].apiKey = process.env.REACT_APP_LD_API_KEY;
-//ApiClient.instance.defaultHeaders = {}; //for Firefox and Chrome CORS warnings in console
+ApiClient.instance.defaultHeaders = {}; //for Firefox and Chrome CORS warnings in console
 
 const LD = new FeatureFlagsApi();
 const ENV = process.env.REACT_APP_LD_PROJECT_ENV_KEY;
