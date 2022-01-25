@@ -12,10 +12,10 @@ terraform {
 # - Project key
 # - Environment name, key, color
 locals {
-  LD_access_token      = "api-87c1c819-b350-4968-8205-c858f0eaa39d"
-  LD_project_key       = "leon-demo-project"
-  LD_environment_name  = "TFTest"
-  LD_environment_key   = "tftest"
+  LD_access_token      = "<your access token>"
+  LD_project_key       = "<your project key>"
+  LD_environment_name  = "<your environment name>"
+  LD_environment_key   = "<your environment key>"
   LD_environment_color = "ff0000"
 }
 
