@@ -1,6 +1,10 @@
 import React from "react";
 
 export default function Broken(props) {
+    const message = props.server ? 
+    "Internal Server Error: Too many cat pics" : 
+    "Oh no! That feature! It's broken!";
+
     return (
         <div style={{
             position: 'fixed',
@@ -26,14 +30,14 @@ export default function Broken(props) {
                     textAlign: 'center',
                     marginBottom: '10px'
                 }}>
-                    <span style={{ margin: 'auto', fontWeight: 'bolder', fontSize: '18px' }}>Demo App {props.server ? "Server" : "Client"} Error</span>
+                    <span style={{ margin: 'auto', fontWeight: 'bolder', fontSize: '18px' }}>{message}</span>
                 </div>
                 <div>
                     A problem has been detected with this application and it  has been shut down to prevent damage to your device.<br /><br />
                     If this is the first time you've seen this, consider yourself lucky.<br /><br />
                     If problems continue, you need LaunchDarkly feature flagging in your application ASAP.<br /><br />
                     Technical Information: <br />
-                    *** STOP: (0xRELEASFEATURESWITHFLAGS, 0xSEPARATEDEPLOYFROMRELEASE)
+                    *** START: (0xRELEASFEATURESWITHFLAGS, 0xSEPARATEDEPLOYFROMRELEASE, 0xTESTINPRODUCTION)
                 </div>
             </div>
         </div>
