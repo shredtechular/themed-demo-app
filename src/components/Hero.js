@@ -11,13 +11,13 @@ export default function Hero() {
 
 	let canPlaySound = (context.soundEnabled === true && context.clickSound.length > 0);
 
-	const imageClick = () => {			
+	const imageClick = () => {
 		if (canPlaySound && audioRef.current.readyState === 4) {
 			if (!audioPlaying) {
 				audioRef.current.src = context.clickSound;
 				audioRef.current.play();
 				setAudioPlaying(true);
-			}	
+			}
 		}
 	}
 
@@ -41,6 +41,7 @@ export default function Hero() {
 					Welcome to the {context.soundEnabled}
 				</chakra.h1>
 			</Center>
+
 			<Flex
 				className="heroSection"
 				bgPosition="center"
@@ -74,26 +75,43 @@ export default function Hero() {
 				</Center>
 			}
 
-			<Center>
-				<Image
-					mt={3}
-					height="auto"
-					p={0}
-					mb={0}
-					maxWidth={{ base: '40%', md: '60%' }}
-					src={
-						context.selectedItem != context.NOP ?
-							context.items.find((item) => item.name === context.selectedItem).image
-							: context.defaultItemImage
-					}
-					{...(canPlaySound && { onClick: imageClick, cursor: "pointer" })}
-				/>
-			</Center>
-			{canPlaySound &&
+			{(canPlaySound) ?
+				<Box onClick={imageClick} cursor="pointer">
+					<Center>
+						<Image
+							mt={3}
+							height="auto"
+							p={0}
+							mb={0}
+							maxWidth={{ base: '40%', md: '60%' }}
+							cursor="pointer"
+							src={
+								context.selectedItem != context.NOP ?
+									context.items.find((item) => item.name === context.selectedItem).image
+									: context.defaultItemImage
+							} />
+					</Center>
+					<Center>
+						<chakra.span cursor="pointer" lineHeight={1} fontSize={{ base: 20, md: 30 }}>Click Me!</chakra.span>
+					</Center>
+				</Box>
+				:
 				<Center>
-					<Link onClick={imageClick} textDecoration="none" cursor="pointer" lineHeight={1} fontSize={{ base: 20, md: 30 }}>Click me!</Link>
+					<Image
+						mt={3}
+						height="auto"
+						p={0}
+						mb={0}
+						maxWidth={{ base: '40%', md: '60%' }}
+						src={
+							context.selectedItem != context.NOP ?
+								context.items.find((item) => item.name === context.selectedItem).image
+								: context.defaultItemImage
+						}
+					/>
 				</Center>
 			}
+
 		</Box>
 	);
 }
