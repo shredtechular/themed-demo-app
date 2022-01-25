@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
 import QRCode from 'react-qr-code';
-import { chakra, Box, Heading, Image, Flex, Center } from '@chakra-ui/react'
+import { chakra, Box, Heading, Image, Flex, Center, Link } from '@chakra-ui/react'
 import { DemoContext } from '../App';
 
 export default function Hero() {
@@ -87,7 +87,7 @@ export default function Hero() {
 			</Center>
 			{canPlaySound &&
 				<Center>
-					<chakra.span lineHeight={1} fontSize={{ base: 20, md: 30 }}>Click me!</chakra.span>
+					<Link onClick={imageClick} textDecoration="none" cursor="pointer" lineHeight={1} fontSize={{ base: 20, md: 30 }}>Click me!</Link>
 				</Center>
 			}
 		</Box>
