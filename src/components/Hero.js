@@ -12,6 +12,7 @@ export default function Hero() {
 	const imageClick = () => {
 		if (context.soundEnabled) {
 			const src = context.selectedItem.sound ? context.selectedItem.sound : context.clickSound;
+			console.log('audio src', src);
 			if (src.length > 0 && audioRef.current.readyState === 4) {
 				if (!audioPlaying) {
 					audioRef.current.src = src;
@@ -24,7 +25,6 @@ export default function Hero() {
 
 	useEffect(() => {
 		if (context.soundEnabled && !audioRef.current) {
-			console.log('can play sound, initializing Audio', audioRef.current);
 			audioRef.current = new Audio();
 
 			//hack for iOS Safari sound woes...
@@ -104,8 +104,7 @@ export default function Hero() {
 						p={0}
 						mb={0}
 						maxWidth={{ base: '40%', md: '60%' }}
-						src={context.selectedItem != context.NOP ? context.selectedItem.image : context.defaultItemImage} />
-
+						src={context.selectedItem != context.NOP ? context.selectedItem.image : context.defaultItemImage} />	
 				</Center>
 			}
 		</Box>
