@@ -6,22 +6,26 @@ import { DemoContext } from '../App';
 export default function Hero() {
 	const { context } = useContext(DemoContext);
 	const [audioPlaying, setAudioPlaying] = useState(false);
-	const audioRef = useRef(new Audio());
-	let canPlaySound = (context.soundEnabled === true && context.clickSound.length > 0);
+	const audioRef = useRef();
 	const qrCodeURL = process.env.REACT_APP_GITHUB_PAGES_URL;
+
+	let canPlaySound = (context.soundEnabled === true && context.clickSound.length > 0);
 
 	const imageClick = () => {			
 		if (canPlaySound && audioRef.current.readyState === 4) {
 			if (!audioPlaying) {
+				audioRef.current.src = context.clickSound;
 				audioRef.current.play();
 				setAudioPlaying(true);
-			}
+			}	
 		}
 	}
 
 	useEffect(() => {
 		if (canPlaySound) {
-			audioRef.current = new Audio(context.clickSound);
+			audioRef.current = new Audio();
+			audioRef.current.autoplay = true;
+			audioRef.current.src = "data:audio/mpeg;base64,SUQzBAAAAAABEVRYWFgAAAAtAAADY29tbWVudABCaWdTb3VuZEJhbmsuY29tIC8gTGFTb25vdGhlcXVlLm9yZwBURU5DAAAAHQAAA1N3aXRjaCBQbHVzIMKpIE5DSCBTb2Z0d2FyZQBUSVQyAAAABgAAAzIyMzUAVFNTRQAAAA8AAANMYXZmNTcuODMuMTAwAAAAAAAAAAAAAAD/80DEAAAAA0gAAAAATEFNRTMuMTAwVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQsRbAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQMSkAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV";
 			audioRef.current.addEventListener('ended', () => {
 				audioRef.current.currentTime = 0;
 				setAudioPlaying(false)
