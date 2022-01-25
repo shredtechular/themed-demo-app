@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { DemoContext } from '../App';
 import {
 	chakra,
@@ -20,18 +20,19 @@ export default function Navigation() {
 	const { context } = useContext(DemoContext);
 	const [showBroken, setShowBroken] = useState(false);
 
-	function brokenFeatureClicked(e) {
-		setShowBroken(false);
-	}
+	useEffect(() => {
+		if(!context.demoBroken && showBroken) {
+			setShowBroken(false);
+		}
+	}, [context.demoBroken]);
 
 	function linkClicked() {
 		setShowBroken(context.demoBroken);
 	}
-
 	return (
 		<>
 			{context.demoServerBroken && <div><Broken server="true" /></div>}
-			{showBroken && <div onClick={brokenFeatureClicked}><Broken /></div>}
+			{showBroken && <div><Broken /></div>}
 			<chakra.header px={2} w="full" textAlign="center" justifyContent="center">
 				<Flex h={16} alignItems='center' justifyContent='space-between' textAlign="center">
 					{context.navLinks &&

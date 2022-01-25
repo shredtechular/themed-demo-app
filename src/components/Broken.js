@@ -26,7 +26,7 @@ export default function Broken(props) {
                     textAlign: 'center',
                     marginBottom: '10px'
                 }}>
-                    <span style={{ margin: 'auto', fontWeight: 'bolder', fontSize: '18px' }}>LaunchDarkly</span>
+                    <span style={{ margin: 'auto', fontWeight: 'bolder', fontSize: '18px' }}>LaunchDarkly {props.server ? "Server" : "Client"} Error</span>
                 </div>
                 <div>
                     A problem has been detected with this application and it  has been shut down to prevent damage to your device.<br /><br />
