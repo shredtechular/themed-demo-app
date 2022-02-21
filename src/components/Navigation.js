@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { DemoContext } from '../App';
 import {
 	chakra,
@@ -43,7 +43,7 @@ export default function Navigation() {
 							display={{ md: 'none' }}
 							onClick={isOpen ? onClose : onOpen} />
 					}
-					<Flex >
+					<Flex>
 						<chakra.h1 display="flex" alignItems="center" fontSize="xl" fontWeight="medium">LaunchDarkly</chakra.h1>
 					</Flex>
 					<HStack spacing={3} alignItems='center' display="flex">
@@ -51,11 +51,16 @@ export default function Navigation() {
 							as='nav'
 							spacing={1}
 							display={{ base: 'none', md: 'flex' }}>
-							{context.navLinks?.map((link, index) =>
-								<Link {...(index === 0 && { onClick: linkClicked })} key={link} px={2} py={1} rounded='md' _hover={{ textDecoration: 'none' }} href='#'>{link}</Link>
-							)}
+							{context.demoBroken &&
+								context.navLinks?.map((link, index) =>
+									<Link {...(index === 0 && { onClick: linkClicked })} key={link} px={2} py={1} rounded='md' _hover={{ textDecoration: 'none' }} href='#'>{link}</Link>
+								)}
 						</HStack>
-						<SettingsDrawer />
+
+						{context.items?.length > 0 &&
+							<SettingsDrawer />
+						}
+
 						<Image
 							htmlHeight={52}
 							htmlWidth={38}
@@ -65,9 +70,10 @@ export default function Navigation() {
 				{isOpen &&
 					<Box pb={4} display={{ md: 'none' }}>
 						<Stack as={'nav'} spacing={4}>
-							{context.navLinks?.map((link, index) =>
-								<Link {...(index === 0 && { onClick: linkClicked })} key={link} px={2} py={1} rounded='md' _hover={{ textDecoration: 'none' }} href='#'>{link}</Link>
-							)}
+							{context.demoBroken &&
+								context.navLinks?.map((link, index) =>
+									<Link {...(index === 0 && { onClick: linkClicked })} key={link} px={2} py={1} rounded='md' _hover={{ textDecoration: 'none' }} href='#'>{link}</Link>
+								)}
 						</Stack>
 					</Box>
 				}

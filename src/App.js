@@ -1,30 +1,30 @@
-import React, { useEffect, useState, createContext, useRef } from 'react';
+import React, { useEffect, useRef, createContext, useState } from 'react';
 import { ChakraProvider, Flex, extendTheme } from '@chakra-ui/react';
-import { withLDConsumer, useFlags } from 'launchdarkly-react-client-sdk';
+import { useFlags, useLDClient } from 'launchdarkly-react-client-sdk';
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
-import './App.css'
+import './App.css';
 
 export const DemoContext = createContext();
 
-function App({ ldClient }) {
-  const { demoTheme, demoSoundEnabled, demoQRCode, demoAdmin, demoBroken, demoServerBroken } = useFlags();
+function App() {
+  const { demoTheme, demoSoundEnabled, demoQRCode, demoBroken, demoServerBroken, demoAdmin } = useFlags();
   const [context, setContext] = useState({});
-  const [theme, setTheme] = useState();
+  const ldClient = useLDClient();
+  const theme = useRef();
   const themeCache = useRef([]);
 
-  async function updateTheme(theme) {
-    let ctx = themeCache.current.find(t => (t.theme === theme));
-
+  async function updateThemeInfo(demoTheme) {
+    let ctx = themeCache.current[demoTheme];
     if (!ctx) {
+      console.log('Network call');
       const resp = await fetch(`themes/${demoTheme}/theme.json`);
       ctx = await resp.json();
-      themeCache.current.push(ctx);
+      themeCache.current[demoTheme] = ctx;
     }
 
     ctx = {
       ...ctx,
-      ldClient: ldClient,
       avatar: ldClient.getUser().avatar,
       soundEnabled: demoSoundEnabled,
       showQRCode: demoQRCode,
@@ -33,12 +33,22 @@ function App({ ldClient }) {
       NOP: 'DEFAULT'
     };
 
-    setTheme(extendTheme(ctx.themeStyle));
+    theme.current = extendTheme(ctx.themeStyle);
     setContext(previousContext => ({ ...previousContext, ...ctx }));
   }
 
+  async function resetUserSelection() {
+    const user = ldClient.getUser();
+    if (user.custom.selection != 'DEFAULT') {
+      const newUser = { ...user, custom: { ...user.custom, selection: 'DEFAULT' } };
+      await ldClient.identify(newUser);
+    }
+  };
+
   useEffect(() => {
-    updateTheme(demoTheme);
+    updateThemeInfo(demoTheme)
+      .then(resetUserSelection)
+      .catch(e => console.error(e));
   }, [demoTheme]);
 
   useEffect(() => {
@@ -49,9 +59,9 @@ function App({ ldClient }) {
     setContext(previousContext => ({ ...previousContext, soundEnabled: demoSoundEnabled }));
   }, [demoSoundEnabled]);
 
-  useEffect(() => {
-    setContext(previousContext => ({ ...previousContext, demoAdmin: demoAdmin }));
-  }, [demoAdmin]);
+  // useEffect(() => {
+  //   //setContext(previousContext => ({ ...previousContext, demoAdmin: demoAdmin }));
+  // }, [demoAdmin]);
 
   useEffect(() => {
     setContext(previousContext => ({ ...previousContext, demoBroken: demoBroken }));
@@ -62,7 +72,7 @@ function App({ ldClient }) {
   }, [demoServerBroken]);
 
   return (
-    <ChakraProvider theme={theme}>
+    <ChakraProvider theme={theme.current}>
       <DemoContext.Provider value={{ context, setContext }}>
         <Flex direction="column" w="100%" m="0 auto">
           <Navigation />
@@ -73,4 +83,4 @@ function App({ ldClient }) {
   );
 }
 
-export default withLDConsumer()(App);
+export default App;

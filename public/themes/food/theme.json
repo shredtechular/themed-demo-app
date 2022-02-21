@@ -31,6 +31,14 @@
             "image": "https://imageresizer.pollotropical.fuzzhq.com/resize/?source=https://koala-marketing-api-production.s3.amazonaws.com/pollo-tropical/assets/WhiteRice.png&height=9999&width=600&max_quality=85"
         },
         {
+            "name": "Pizza",
+            "image": "https://randys-pizza.com/wp-content/uploads/new-york-style-pizza-and-subs.png"
+        },
+        {
+            "name": "Spaghetti",
+            "image": "https://jollibee.mangoads.com.vn/uploads/dish/3462caa31b7820-myylon.png"
+        },
+        {
             "name": "Hamburger",
             "image": "https://www.caseys.com/medias/sys_master/images/h06/h65/8796514517022/9843789010_base-400x400/9843789010-base-400x400.png"
         },

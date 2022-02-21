@@ -59,7 +59,7 @@ const FF = {
     },
     toggleDemoSoundFlag: function (enabled) {
         return new Promise((resolve, reject) => {
-            FF.patchFeatureFlag(PROJ,
+            LD.patchFeatureFlag(PROJ,
                 'demoSoundEnabled',
                 {
                     patch: [

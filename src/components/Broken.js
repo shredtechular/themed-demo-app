@@ -1,8 +1,8 @@
 import React from "react";
 
 export default function Broken(props) {
-    const message = props.server ? 
-        "Server Error: Too many cat pics" : 
+    const message = props.server ?
+        "Server Error: Too many cat pics" :
         "Oh no! That feature! It's broken!";
 
     return (

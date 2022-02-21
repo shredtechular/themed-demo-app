@@ -1,5 +1,6 @@
-import React, { useRef, useContext, useState, useEffect } from "react";
-import { DemoContext } from '../App';
+import { useRef, useContext } from "react";
+import { DemoContext } from "../App";
+import { useLDClient } from 'launchdarkly-react-client-sdk';
 import {
     Button,
     Drawer,
@@ -8,50 +9,64 @@ import {
     DrawerOverlay,
     DrawerContent,
     DrawerCloseButton,
-    FormControl,
+    FormLabel,
     useDisclosure,
-    Select,
-    Stack,
-    Box,
-    FormLabel
+    Select
 } from "@chakra-ui/react";
-import FF from './FF';
 
 export default function SettingsDrawer() {
     const { context, setContext } = useContext(DemoContext);
+    const ldClient = useLDClient();
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const [selectedTargetingItem, setSelectedTargetintItem] = useState(context.NOP);
-    const [selectedSuit, setSelectedSuit] = useState(context.NOP);
     const buttonRef = useRef();
-    const suits = useRef([]);
-    const themes = useRef([]);
+
+    function selectedItemChanged(e) {
+        const value = e.target.value;
+        const user = ldClient.getUser();
+        ldClient
+            .identify({ ...user, custom: { ...user.custom, selection: value } })
+            .then(() => {
+                const selectedContextItem = (value != context.NOP) ?
+                    context.items.find(item => item.name == value) :
+                    context.NOP;
+                setContext(previousContext => ({ ...previousContext, selectedItem: selectedContextItem }));
+            });
+    }
+
+
+    // ADMIN features
+    //const [selectedTargetingItem, setSelectedTargetintItem] = useState(context.NOP);
+    //const [selectedSuit, setSelectedSuit] = useState(context.NOP);
+
+    //const suits = useRef([]);
+    //const themes = useRef([]);
 
     //const [selectedCard, setSelectedCard] = useState(context.NOP);
     //const cards = useRef([]);
 
-    useEffect(() => {
-        FF.getDemoThemeVariations()
-            .then(result => themes.current = result);
-        FF.getDemoSoundFlag()
-            .then(result => setTargetingSelections(result));
-        loadSuits();
-        //loadCards(); //use this if enabling specific card targeting (ex. '2S' for two of spades)
-    }, []);
+    //useEffect(() => {
+    //FF.getDemoThemeVariations()
+    //   .then(result => themes.current = result);
+    //FF.getDemoSoundFlag()
+    //    .then(result => setTargetingSelections(result));
+    //loadSuits();
+    //loadCards(); //use this if enabling specific card targeting (ex. '2S' for two of spades)
+    //}, []);
 
-    function setTargetingSelections(flag) {
-        const env = process.env.REACT_APP_LD_PROJECT_ENV_KEY;
-        const selectionRule = flag.environments[env].rules.find(rule => rule.description == 'Selection');
-        const cardRule = flag.environments[env].rules.find(rule => rule.description == 'Card');
+    //function setTargetingSelections(flag) {
+    //const env = process.env.REACT_APP_LD_PROJECT_ENV_KEY;
+    //const selectionRule = flag.environments[env].rules.find(rule => rule.description == 'Selection');
+    //const cardRule = flag.environments[env].rules.find(rule => rule.description == 'Card');
 
-        //lazy way would be to index clauses (clauses[x], etc.) but...
-        const targetedSelection = selectionRule.clauses.find(c => c.attribute == 'selection')?.values[0];
-        const targetedSuit = cardRule.clauses.find(c => c.attribute == 'suit')?.values[0];
-        //const targetedCard = cardRule.clauses.find(c => c.attribute == 'card')?.values[0];
+    //lazy way would be to index clauses (clauses[x], etc.) but...
+    //const targetedSelection = (selectionRule) ? selectionRule.clauses.find(c => c.attribute == 'selection')?.values[0] : context.NOP;
+    //const targetedSuit = (cardRule) ? cardRule.clauses.find(c => c.attribute == 'suit')?.values[0] : context.NOP;
+    //const targetedCard = cardRule.clauses.find(c => c.attribute == 'card')?.values[0];
 
-        setSelectedTargetintItem(targetedSelection);
-        setSelectedSuit(targetedSuit);
-        //setSelectedCard(targetedCard);
-    }
+    //setSelectedTargetintItem(targetedSelection);
+    //setSelectedSuit(targetedSuit);
+    ////setSelectedCard(targetedCard);
+    //}
 
     // function loadCards() {
     //     if (cards.current.length > 0) return;
@@ -67,36 +82,28 @@ export default function SettingsDrawer() {
     //     })();
     // }
 
-    function loadSuits() {
-        suits.current = ['DIAMONDS', 'CLUBS', 'SPADES', 'HEARTS'];
-    }
+    // function loadSuits() {
+    //     suits.current = ['DIAMONDS', 'CLUBS', 'SPADES', 'HEARTS'];
+    // }
 
-    function selectedItemChanged(e) {
-        const value = e.target.value;
-        const user = context.ldClient.getUser();
-        context.ldClient.identify({ ...user, custom: { ...user.custom, selection: value } });
-        const selectedContextItem = (value != context.NOP) ? context.items.find(item => item.name == value) : context.NOP;
-        setContext(previousContext => ({ ...previousContext, selectedItem: selectedContextItem }));
-    }
+    // function selectedThemeChanged(e) {
+    //     const value = e.target.value;
+    //     FF.setSoundFlagSelectionTarget(context.NOP)
+    //         .then(FF.updateDemoThemeFallthrough(value));
+    //     setContext(previousContext => ({ ...previousContext, theme: value }));
+    // }
 
-    function selectedThemeChanged(e) {
-        const value = e.target.value;
-        FF.setSoundFlagSelectionTarget(context.NOP)
-            .then(FF.updateDemoThemeFallthrough(value));
-        setContext(previousContext => ({ ...previousContext, theme: value }));
-    }
+    // function selectedTargetingItemChanged(e) {
+    //     const value = e.target.value;
+    //     setSelectedTargetintItem(value);
+    //     FF.setSoundFlagSelectionTarget(value);
+    // }
 
-    function selectedTargetingItemChanged(e) {
-        const value = e.target.value;
-        setSelectedTargetintItem(value);
-        FF.setSoundFlagSelectionTarget(value);
-    }
-
-    function selectedSuitChanged(e) {
-        const value = e.target.value;
-        setSelectedSuit(value);
-        FF.setSoundFlagSuitTarget(value);
-    }
+    // function selectedSuitChanged(e) {
+    //     const value = e.target.value;
+    //     setSelectedSuit(value);
+    //     FF.setSoundFlagSuitTarget(value);
+    // }
 
     // function selectedCardChanged(e) {
     //     //TODO: implement
@@ -128,7 +135,7 @@ export default function SettingsDrawer() {
                                 </Select>
                             </>
                         }
-                        {context.demoAdmin &&
+                        {/* {context.demoAdmin &&
                             <>
                                 <FormControl mt={4} borderRadius='md' borderWidth={1} p={3}>
                                     <FormLabel fontWeight='bold' borderBottomWidth={1} pb={3}>Admin Settings</FormLabel>
@@ -156,7 +163,7 @@ export default function SettingsDrawer() {
                                                     </Select>
                                                 </>
                                             }
-                                            {/* {cards.current &&
+                                            {cards.current &&
                                                 <>
                                                     <FormLabel fontWeight='bold'>Card</FormLabel>
                                                     <Select mb={3} onChange={selectedCardChanged} value={selectedCard} borderBottomWidth={1}>
@@ -166,7 +173,7 @@ export default function SettingsDrawer() {
                                                         )}
                                                     </Select>
                                                 </>
-                                            } */}
+                                            }
                                             <FormLabel fontWeight='bold'>Suit</FormLabel>
                                             <Select mb={3} value={selectedSuit} borderBottomWidth={1} onChange={selectedSuitChanged}>
                                                 <option value={context.NOP}>Select a suit</option>
@@ -178,7 +185,7 @@ export default function SettingsDrawer() {
                                     </Stack>
                                 </FormControl>
                             </>
-                        }
+                        } */}
                     </DrawerBody>
                 </DrawerContent>
             </Drawer>

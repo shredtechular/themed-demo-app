@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import ReactDOM from "react-dom";
 import { asyncWithLDProvider } from "launchdarkly-react-client-sdk";
 import App from "./App";
@@ -19,7 +19,8 @@ import App from "./App";
       custom: {
         card: card.code,
         suit: card.suit,
-        face: card.value
+        face: card.value,
+        selection: 'DEFAULT'
       }
     },
     flags: {
@@ -34,7 +35,7 @@ import App from "./App";
 
   ReactDOM.render(
     <LDProvider>
-      <App/>
+      <App />
     </LDProvider>,
     document.getElementById('root')
   );
