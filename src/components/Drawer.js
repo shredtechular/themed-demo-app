@@ -121,7 +121,7 @@ export default function SettingsDrawer() {
 
     return (
         <>
-            <Button ref={buttonRef} onClick={onOpen}>Settings</Button>
+            <Button ref={buttonRef} onClick={onOpen} border="2px" borderColor="gray.300" colorScheme="gray">Settings</Button>
             <Drawer
                 isOpen={isOpen}
                 placement="right"
@@ -129,7 +129,7 @@ export default function SettingsDrawer() {
                 finalFocusRef={buttonRef}>
                 <DrawerOverlay />
                 <DrawerContent>
-                    <DrawerCloseButton />
+                    <DrawerCloseButton border="2px" borderColor="gray.300" />
                     <DrawerHeader borderBottomWidth="1px">Settings</DrawerHeader>
                     <DrawerBody>
                         {context.items?.length > 0 &&

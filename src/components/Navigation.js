@@ -34,9 +34,10 @@ export default function Navigation() {
 			{context.demoServerBroken && <div><Broken server="true" /></div>}
 			{showBroken && <div><Broken /></div>}
 			<chakra.header px={2} w="full" textAlign="center" justifyContent="center">
-				<Flex h={16} alignItems='center' justifyContent='space-between' textAlign="center">
+				<Flex h={20} alignItems='center' justifyContent='space-between' textAlign="center">
 					{context.navLinks &&
 						<IconButton
+						border="2px" borderColor="gray.300"
 							size={'md'}
 							icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
 							aria-label={'Open Menu'}
@@ -44,7 +45,7 @@ export default function Navigation() {
 							onClick={isOpen ? onClose : onOpen} />
 					}
 					<Flex>
-						<chakra.h1 display="flex" alignItems="center" fontSize="xl" fontWeight="medium">LaunchDarkly</chakra.h1>
+						<chakra.h1 display="flex" alignItems="center" fontSize="2xl" fontWeight="medium">LaunchDarkly</chakra.h1>
 					</Flex>
 					<HStack spacing={3} alignItems='center' display="flex">
 						<HStack
@@ -62,8 +63,8 @@ export default function Navigation() {
 						}
 
 						<Image
-							htmlHeight={52}
-							htmlWidth={38}
+							htmlHeight={64}
+							htmlWidth={50}
 							src={context.avatar} />
 					</HStack>
 				</Flex>
