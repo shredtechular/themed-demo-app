@@ -128,7 +128,7 @@ export default function SettingsDrawer() {
                             <>
                                 <FormLabel fontWeight='bold'>Item Selection</FormLabel>
                                 <Select onChange={selectedItemChanged} value={context.selectedItem.name}>
-                                    <option value={context.NOP}>Select a {context.itemType}</option>
+                                    <option key={context.NOP} value={context.NOP}>Select a {context.itemType}</option>
                                     {context.items.map(item =>
                                         <option key={item.name} value={item.name}>{item.name}</option>
                                     )}
