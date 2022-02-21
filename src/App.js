@@ -13,6 +13,7 @@ function App() {
   const ldClient = useLDClient();
   const theme = useRef();
   const themeCache = useRef([]);
+  const DEFAULT = 'DEFAULT';
 
   async function updateThemeInfo(demoTheme) {
     let ctx = themeCache.current[demoTheme];
@@ -28,9 +29,10 @@ function App() {
       soundEnabled: demoSoundEnabled,
       showQRCode: demoQRCode,
       demoAdmin: demoAdmin,
-      selectedItem: 'DEFAULT',
-      NOP: 'DEFAULT'
+      selectedItem: DEFAULT,
+      NOP: DEFAULT
     };
+
 
     theme.current = extendTheme(ctx.themeStyle);
     setContext(previousContext => ({ ...previousContext, ...ctx }));
@@ -38,8 +40,8 @@ function App() {
 
   async function resetUserSelection() {
     const user = ldClient.getUser();
-    if (user.custom.selection != 'DEFAULT') {
-      const newUser = { ...user, custom: { ...user.custom, selection: 'DEFAULT' } };
+    if (user.custom.selection != DEFAULT) {
+      const newUser = { ...user, custom: { ...user.custom, selection: DEFAULT } };
       await ldClient.identify(newUser);
     }
   };

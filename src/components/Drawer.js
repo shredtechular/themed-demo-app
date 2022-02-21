@@ -1,4 +1,4 @@
-import { useRef, useContext } from "react";
+import { useRef, useContext, useEffect, useState } from "react";
 import { DemoContext } from "../App";
 import { useLDClient } from 'launchdarkly-react-client-sdk';
 import {
@@ -19,9 +19,11 @@ export default function SettingsDrawer() {
     const ldClient = useLDClient();
     const { isOpen, onOpen, onClose } = useDisclosure();
     const buttonRef = useRef();
+    const [selectionValue, setSelectionValue] = useState();
 
     function selectedItemChanged(e) {
         const value = e.target.value;
+        setSelectionValue(value);
         const user = ldClient.getUser();
         ldClient
             .identify({ ...user, custom: { ...user.custom, selection: value } })
@@ -33,6 +35,12 @@ export default function SettingsDrawer() {
             });
     }
 
+    useEffect(() => {
+        if (context.selectedItem) {
+            const val = (context.selectedItem.name) ? context.selectedItem.name : context.NOP;
+            setSelectionValue(val);
+        }
+    }, [context.selectedItem]);
 
     // ADMIN features
     //const [selectedTargetingItem, setSelectedTargetintItem] = useState(context.NOP);
@@ -127,7 +135,7 @@ export default function SettingsDrawer() {
                         {context.items?.length > 0 &&
                             <>
                                 <FormLabel fontWeight='bold'>Item Selection</FormLabel>
-                                <Select onChange={selectedItemChanged} value={context.selectedItem.name}>
+                                <Select onChange={selectedItemChanged} value={selectionValue}>
                                     <option key={context.NOP} value={context.NOP}>Select a {context.itemType}</option>
                                     {context.items.map(item =>
                                         <option key={item.name} value={item.name}>{item.name}</option>
