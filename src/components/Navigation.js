@@ -62,8 +62,8 @@ export default function Navigation() {
 						}
 
 						<Image
-							htmlHeight={52}
-							htmlWidth={38}
+							htmlHeight={68}
+							htmlWidth={50}
 							src={context.avatar} />
 					</HStack>
 				</Flex>
