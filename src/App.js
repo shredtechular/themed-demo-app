@@ -17,7 +17,6 @@ function App() {
   async function updateThemeInfo(demoTheme) {
     let ctx = themeCache.current[demoTheme];
     if (!ctx) {
-      console.log('Network call');
       const resp = await fetch(`themes/${demoTheme}/theme.json`);
       ctx = await resp.json();
       themeCache.current[demoTheme] = ctx;
