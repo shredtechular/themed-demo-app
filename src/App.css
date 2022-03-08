@@ -1,0 +1,45 @@
+
+.themeName {
+    text-shadow:
+    4px  4px 0 #000,
+    -1px -1px 0 #000,  
+     1px -1px 0 #000,
+    -1px  1px 0 #000,
+     1px  1px 0 #000;
+}
+
+.heroSection {
+    -moz-box-shadow:    inset 0 0 10px #000000;
+    -webkit-box-shadow: inset 0 0 10px #000000;
+    box-shadow:         inset 0 0 10px #000000;
+}
+
+/* baseball */
+@import url('https://fonts.googleapis.com/css2?family=Playball&display=swap');
+
+/* football */
+@import url('https://fonts.googleapis.com/css2?family=Graduate&family=Playball&display=swap');
+
+/* soccer */
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
+/* basketball */
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap');
+
+/* food */
+@import url('https://fonts.googleapis.com/css2?family=Dosis&display=swap');
+
+/* p2p */
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech&display=swap');
+
+/* movies */
+@import url('https://fonts.googleapis.com/css2?family=Limelight&display=swap');
+
+/* music */
+@import url('https://fonts.googleapis.com/css2?family=Boogaloo&display=swap');
+
+/* animals */
+@import url('https://fonts.googleapis.com/css2?family=Pangolin&display=swap');
+
+/* cricket */
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
