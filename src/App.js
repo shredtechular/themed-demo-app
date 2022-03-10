@@ -33,7 +33,6 @@ function App() {
       NOP: DEFAULT
     };
 
-
     theme.current = extendTheme(ctx.themeStyle);
     setContext(previousContext => ({ ...previousContext, ...ctx }));
   }
