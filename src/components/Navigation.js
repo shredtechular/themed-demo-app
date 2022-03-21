@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
-import { DemoContext } from '../App';
+import { DemoContext } from '../App.js';
 import {
 	chakra,
 	Box,
@@ -12,8 +12,8 @@ import {
 	Stack
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
-import SettingsDrawer from './Drawer';
-import Broken from './Broken';
+import SettingsDrawer from './Drawer.js';
+import Broken from './Broken.js';
 
 export default function Navigation() {
 	const { isOpen, onOpen, onClose } = useDisclosure();
