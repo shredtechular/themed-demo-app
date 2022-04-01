@@ -15,6 +15,7 @@
 .DS_Store
 .env
 .env.local
+.env.githubpages
 .env.development.local
 .env.test.local
 .env.production.local
@@ -26,4 +27,4 @@ yarn-error.log*
 /src/terraform.tfstate
 /src/.terraform.lock.hcl
 /src/.terraform
-
+/src/main.tf.githubpages
