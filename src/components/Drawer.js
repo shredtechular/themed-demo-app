@@ -1,5 +1,5 @@
-import { useRef, useContext, useEffect, useState } from "react";
-import { DemoContext } from "../App";
+import { useRef, useContext, useEffect, useState } from 'react';
+import { DemoContext } from "../App.js";
 import { useLDClient } from 'launchdarkly-react-client-sdk';
 import {
     Button,
@@ -12,7 +12,7 @@ import {
     FormLabel,
     useDisclosure,
     Select
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 
 export default function SettingsDrawer() {
     const { context, setContext } = useContext(DemoContext);

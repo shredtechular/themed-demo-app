@@ -1,0 +1,52 @@
+{
+  "name": "themed-demo-app",
+  "version": "0.1.0",
+  "homepage": "https://saramazer.github.io/themed-demo-app/",
+  "private": true,
+  "dependencies": {
+    "@chakra-ui/icons": "^1.1.1",
+    "@chakra-ui/provider": "^1.7.9",
+    "@chakra-ui/react": "^1.8.3",
+    "@emotion/react": "^11.7.1",
+    "@emotion/styled": "^11.6.0",
+    "@testing-library/jest-dom": "^5.16.2",
+    "@testing-library/react": "^12.1.2",
+    "@testing-library/user-event": "^13.5.0",
+    "@welldone-software/why-did-you-render": "^6.2.3",
+    "framer-motion": "^6.2.6",
+    "gh-pages": "^3.2.3",
+    "launchdarkly-api": "^7.1.1",
+    "launchdarkly-react-client-sdk": "^2.25.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-qr-code": "^2.0.3",
+    "react-scripts": "5.0.0",
+    "web-vitals": "^1.1.2"
+  },
+  "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

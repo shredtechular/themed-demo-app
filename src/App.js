@@ -1,14 +1,14 @@
 import React, { useEffect, useRef, createContext, useState } from 'react';
 import { ChakraProvider, Flex, extendTheme } from '@chakra-ui/react';
 import { useFlags, useLDClient } from 'launchdarkly-react-client-sdk';
-import Navigation from './components/Navigation';
-import Hero from './components/Hero';
+import Navigation from './components/Navigation.js';
+import Hero from './components/Hero.js';
 import './App.css';
 
 export const DemoContext = createContext();
 
 function App() {
-  const { demoTheme, demoSoundEnabled, demoQRCode, demoBroken, demoServerBroken, demoAdmin } = useFlags();
+  const { demoTheme, demoSoundEnabled, demoQRCode, demoQRWebPage, demoBroken, demoServerBroken, demoAdmin } = useFlags();
   const [context, setContext] = useState({});
   const ldClient = useLDClient();
   const theme = useRef();

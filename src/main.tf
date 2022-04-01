@@ -12,10 +12,10 @@ terraform {
 # - Project key
 # - Environment name, key, color
 locals {
-  LD_access_token      = "<your access token>"
-  LD_project_key       = "<your project key>"
-  LD_environment_name  = "<your environment name>"
-  LD_environment_key   = "<your environment key>"
+  LD_access_token      = "api-1b602f25-def3-4641-804e-d7c16ccedae7"
+  LD_project_key       = "smazer-qr-code-demo"
+  LD_environment_name  = "test"
+  LD_environment_key   = "6227805025626214a2772675"
   LD_environment_color = "ff0000"
 }
 

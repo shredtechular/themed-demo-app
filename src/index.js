@@ -1,7 +1,7 @@
 import React from 'react';
-import ReactDOM from "react-dom";
-import { asyncWithLDProvider } from "launchdarkly-react-client-sdk";
-import App from "./App";
+import ReactDOM from 'react-dom';
+import { asyncWithLDProvider } from 'launchdarkly-react-client-sdk';
+import App from "./App.js";
 
 (async () => {
   const draw = await fetch('https://deckofcardsapi.com/api/deck/new/draw/?count=1');
