@@ -47,7 +47,7 @@ export default function Navigation() {
 			: null;
 	}
 
-	const CloseMenuButton = () => {
+	const CloseMenuButton = () => { 
 		return hasNavLinks ?
 			<IconButton
 				border='2px' borderColor='gray.300'
@@ -66,7 +66,7 @@ export default function Navigation() {
 			<Flex h={20} alignItems='center' justifyContent='space-between'>
 				<CloseMenuButton />
 				<Flex>
-					<Image marginLeft='8px' src='/public/ld_logo_dark.png' height='1.5rem' width='9.75rem' className='ldLogoImage' />
+					<Image marginLeft='8px' src='ld_logo_dark.png' height='1.5rem' width='9.75rem' className='ldLogoImage' />
 				</Flex>
 				<HStack spacing={3} alignItems='center' display='flex'>
 					<HStack
