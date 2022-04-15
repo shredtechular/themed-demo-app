@@ -29,8 +29,7 @@ import App from './App.js';
       'demoQRCode': false,
       'demoAdmin': false,
       'demoBroken': false,
-      'demoServerBroken': false,
-      'demoQRCodeWebPage': ''
+      'demoServerBroken': false
     }
   });
 

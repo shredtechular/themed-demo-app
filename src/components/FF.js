@@ -1,4 +1,4 @@
-import { ApiClient, FeatureFlagsApi } from 'launchdarkly-api';
+import { ApiClient, FeatureFlagsApi } from 'launchdarkly-api/dist/index.js'
 
 ApiClient.instance.authentications['ApiKey'].apiKey = process.env.REACT_APP_LD_API_KEY;
 ApiClient.instance.defaultHeaders = {}; //for Firefox and Chrome CORS warnings in console
@@ -17,7 +17,7 @@ const FF = {
                 'demoTheme',
                 { 'env': ENV },
                 (err, data, response) => {
-                    if (err) { console.error('error fetching theme list', err); reject(); }
+                    if (err) { console.error('Error fetching theme list', err); reject(); }
                     themes = (data) ? data.variations : [];
                     resolve(themes);
                 });
@@ -34,7 +34,7 @@ const FF = {
                             op: 'replace',
                             path: `/environments/${ENV}/fallthrough`,
                             value: {
-                                variation: index
+                                variation: index    
                             }
                         }]
                     },
@@ -44,6 +44,25 @@ const FF = {
                     }
                 );
             }
+        });
+    },
+    toggleDemoThemeFlag: function (enabled) {
+        return new Promise((resolve, reject) => {
+            LD.patchFeatureFlag(PROJ,
+                'demoTheme',
+                {
+                    patch: [
+                        {
+                            op: 'replace',
+                            path: `/environments/${ENV}/on`,
+                            value: enabled
+                        }
+                    ]
+                }, (error, data, response) => {
+                    if (error) { console.error('Error toggling demoTheme flag', error); reject(); }
+                    resolve();
+                }
+            );
         });
     },
     getDemoSoundFlag: function () {

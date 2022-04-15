@@ -1,17 +1,54 @@
-
+/* global */
 .themeName {
     text-shadow:
-    4px  4px 0 #000,
-    -1px -1px 0 #000,  
-     1px -1px 0 #000,
-    -1px  1px 0 #000,
-     1px  1px 0 #000;
+        4px 4px 0 #000,
+        -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;
 }
 
 .heroSection {
-    -moz-box-shadow:    inset 0 0 10px #000000;
+    -moz-box-shadow: inset 0 0 10px #000000;
     -webkit-box-shadow: inset 0 0 10px #000000;
-    box-shadow:         inset 0 0 10px #000000;
+    box-shadow: inset 0 0 10px #000000;
+}
+
+.blink {
+    animation: blink 1s steps(1, end) infinite;
+}
+
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@font-face {
+    font-family: 'Söhne';
+    src: url('/public/Sohne-Buch.woff2') format('woff2');
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+}
+
+/* theme styles */
+
+/* default */
+@font-face {
+    font-family: 'Audimat 3000 Regulier';
+    src: url('/public/Audimat3000-Regulier.woff2') format('woff2');
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
 }
 
 /* baseball */
@@ -43,3 +80,15 @@
 
 /* cricket */
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+/* migration */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap');
+
+.react-flow__node-toggleNode {
+    font-size: 12px;
+    background: #eee;
+    border: 1px solid #555;
+    border-radius: 40px;
+    text-align: center;
+  }
+  

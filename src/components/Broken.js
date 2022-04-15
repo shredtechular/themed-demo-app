@@ -26,10 +26,7 @@ export default function Broken(props) {
                 transform: 'translateX(-50%) translateY(-50%)',
                 maxWidth: '420px'
             }}>
-                <div style={{
-                    textAlign: 'center',
-                    marginBottom: '10px'
-                }}>
+                <div style={{ textAlign: 'center', marginBottom: '10px' }}>
                     <span style={{ margin: 'auto', fontWeight: 'bolder', fontSize: '18px' }}>{message}</span>
                 </div>
                 <div>
