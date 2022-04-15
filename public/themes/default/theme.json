@@ -14,11 +14,11 @@
         "styles": {
             "global": {
                 "body": {
-                    "bgImage": "url('/public/noise.png')",
+                    "bgImage": "url('../../noise.png')",
                     "color": "#BCBEC0"
                 },
                 "img.ldLogoImage": {
-                    "content": "url('/public/ld_logo_white.png')"
+                    "content": "url('../../ld_logo_white.png')"
                 }
             }
         }
