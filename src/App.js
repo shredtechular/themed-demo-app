@@ -72,7 +72,7 @@ function App() {
         <ModalContent>
           <ModalHeader bg='brand.header_bg1'>
             <Center>
-              <Image src='/ld_logo_dark.png' height='1.5rem' width='9.75rem' className='ldLogoImage' />
+              <Image src='ld_logo_dark.png' height='1.5rem' width='9.75rem' className='ldLogoImage' />
             </Center>
           </ModalHeader>
           <ModalBody>

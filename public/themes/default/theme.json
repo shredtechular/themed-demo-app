@@ -14,7 +14,7 @@
         "styles": {
             "global": {
                 "body": {
-                    "bgImage": "noise.png",
+                    "bgImage": "url('noise.png')",
                     "color": "#BCBEC0"
                 },
                 "img.ldLogoImage": {
