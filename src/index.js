@@ -7,6 +7,18 @@ import App from './App.js';
   const draw = await fetch('https://deckofcardsapi.com/api/deck/new/draw/?count=1');
   const hand = await draw.json();
   const card = hand.cards[0];
+  var deviceType = '';
+
+
+
+  if ( /NewRelic/.test(navigator.userAgent) ) 
+  {
+    deviceType = 'NewRelic';
+  }
+  else {
+   deviceType = 'humans';
+  }
+  console.log('users device is:', deviceType);
 
   const LDProvider = await asyncWithLDProvider({
     clientSideID: process.env.REACT_APP_LD_CLIENT_SIDE_ID,
@@ -17,6 +29,7 @@ import App from './App.js';
       key: card.code,
       avatar: card.image,
       custom: {
+        groups: deviceType,
         card: card.code,
         suit: card.suit,
         face: card.value,
