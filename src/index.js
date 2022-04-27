@@ -11,7 +11,8 @@ import App from './App.js';
 
 
 
-  if ( /iPhone/.test(navigator.userAgent) ) 
+  if ( /newrelic|NewRelic|newRelic|New Relic/i.test(navigator.userAgent) ) 
+ // if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/.test(navigator.userAgent) ) 
   {
     deviceType = 'NewRelic';
   }
